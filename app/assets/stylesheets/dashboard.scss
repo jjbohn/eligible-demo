@@ -1,0 +1,18 @@
+.dashboard {
+  width: 50%;
+  margin: 20px auto;
+  background-color: white;
+  -webkit-border-radius: 5px;
+  padding: 10px;
+}
+
+#greeting { 
+  float: left; 
+  margin-top: 5px;
+}
+
+#settings { float: right; }
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+  border-bottom-color: #ddd;
+}

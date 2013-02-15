@@ -1,12 +1,8 @@
 body {
   font-family: Helvetica, sans-serif;
-  background: url(background.png);
+  background: url(../assets/bg.png);
 }
 
-.dashboard {
-  width: 50%;
-  margin: 20px auto;
-  background-color: white;
-  -webkit-border-radius: 5px;
-  padding: 10px;
+.clear {
+  clear: both;
 }

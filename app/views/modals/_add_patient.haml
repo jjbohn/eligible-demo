@@ -1,0 +1,30 @@
+.modal.hide.fade#add-patient
+  .modal-header
+    %button.close{ type:"button", "data-dismiss" => "modal", "aria-hidden" => "true" } &times;
+    %h5 Add Patient
+  .modal-body
+    %form.form-horizontal
+      .control-group
+        %label.control-label{ for: "member_id" } Member ID:
+        .controls
+          %input{ type: "text", name: "member_id" }
+      .control-group
+        %label.control-label{ for: "payer" } Payer:
+        .controls
+          %input.payer-typeahead{ type: "text", name: "payer" }
+      %input{ type: "hidden", name: "payer_id" }
+      .control-group
+        %label.control-label{ for: "first_name" } First Name:
+        .controls
+          %input{ type: "text", name: "first_name" }
+      .control-group
+        %label.control-label{ for: "last_name" } Last Name:
+        .controls
+          %input{ type: "text", name: "last_name" }
+      .control-group
+        %label.control-label{ for: "dob" } DOB:
+        .controls
+          %input{ type: "text", name: "dob" }
+  .modal-footer
+    %button.btn{ href: "#", "data-dismiss" => "modal", "aria-hidden" => "true" } Close
+    %button#add-patient.btn.btn-primary{ href: "#" } Add Patient

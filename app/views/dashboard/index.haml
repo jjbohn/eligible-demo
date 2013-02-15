@@ -1,3 +1,49 @@
 .dashboard
-  %h4 Welcome, Dr. Edna
-  %h5 Patients
+  %h4#greeting Welcome, Dr. Edna
+  %a.btn#settings{ href: "#settings", role: "button", "data-toggle" => "modal" } Settings
+  .clear
+  %ul.nav.nav-tabs
+    %li.active
+      %a{ href: "#patients", "data-toggle" => "tab" } Patients
+    %li
+      %a{ href: "#payers", "data-toggle" => "tab" } Payers
+  .tab-content
+    .tab-pane.active#patients
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th First Name
+            %th Last Name
+            %th DOB
+            %th Member ID
+            %th Payer
+        %tbody
+          - @patients.each do |p|
+            %tr
+              %td 
+                = p.first_name
+              %td 
+                = p.last_name
+              %td 
+                = p.dob
+              %td 
+                = p.enrollments.first.try(:member_id)
+              %td 
+                = p.enrollments.first.try(:payer).try(:name)
+      %a.btn.btn-primary{ href: "#add-patient", role: "button", "data-toggle" => "modal" } Add Patient
+    .tab-pane#payers
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Payer ID
+        %tbody
+          - @payers.each do |p|
+            %tr
+              %td 
+                = p.name
+              %td 
+                = p.payer_id
+      %a.btn.btn-primary{ href: "#" } Add Payer
+= render partial: "modals/settings"
+= render partial: "modals/add_patient"

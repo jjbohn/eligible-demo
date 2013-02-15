@@ -3,4 +3,6 @@ class Payer
 
   field :name,      type: String
   field :payer_id,  type: String
+
+  has_many :enrollments
 end

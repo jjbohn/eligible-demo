@@ -1,0 +1,25 @@
+.modal.hide.fade#settings
+  .modal-header
+    %button.close{ type:"button", "data-dismiss" => "modal", "aria-hidden" => "true" } &times;
+    %h5 Provider Settings
+  .modal-body
+    %form.form-horizontal
+      .control-group
+        %label.control-label{ for: "api_key" } API Key:
+        .controls
+          %input{ type: "text", name: "api_key" }
+      .control-group
+        %label.control-label{ for: "first_name" } First Name:
+        .controls
+          %input{ type: "text", name: "first_name" }
+      .control-group
+        %label.control-label{ for: "last_name" } Last Name:
+        .controls
+          %input{ type: "text", name: "last_name" }
+      .control-group
+        %label.control-label{ for: "npi" } NPI:
+        .controls
+          %input{ type: "text", name: "npi" }
+  .modal-footer
+    %button.btn{ href: "#", "data-dismiss" => "modal", "aria-hidden" => "true" } Close
+    %button#save-settings.btn.btn-primary{ href: "#" } Save changes

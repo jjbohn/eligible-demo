@@ -1,9 +1,9 @@
 class Patient
   include Mongoid::Document
 
-  field :last_name,   type: String
-  field :first_name,  type: String
-  field :dob,         type: String
+  field :last_name
+  field :first_name
+  field :dob
   
   has_many :enrollments
 
@@ -14,5 +14,13 @@ class Patient
       dob: dob,
       enrollments: enrollments.map { |e| e.to_hash }
     }
+  end
+
+  def member_id
+    enrollments.first.try(:member_id)
+  end
+
+  def payer_name
+    enrollments.first.try(:payer).try(:name)
   end
 end

@@ -1,6 +1,6 @@
 .dashboard
-  %h4#greeting Welcome, Dr. Edna
-  %a.btn#settings{ href: "#settings", role: "button", "data-toggle" => "modal" } Settings
+  %h4#greeting Welcome, Dr. Robert
+  %a.btn#settings-button{ href: "#settings", role: "button", "data-toggle" => "modal" } Settings
   .clear
   %ul.nav.nav-tabs
     %li.active
@@ -27,9 +27,9 @@
               %td 
                 = p.dob
               %td 
-                = p.enrollments.first.try(:member_id)
+                = p.member_id
               %td 
-                = p.enrollments.first.try(:payer).try(:name)
+                = p.payer_name
       %a.btn.btn-primary{ href: "#add-patient", role: "button", "data-toggle" => "modal" } Add Patient
     .tab-pane#payers
       %table.table.table-striped.table-hover
@@ -37,6 +37,7 @@
           %tr
             %th Name
             %th Payer ID
+            %th Accepted
         %tbody
           - @payers.each do |p|
             %tr
@@ -44,6 +45,10 @@
                 = p.name
               %td 
                 = p.payer_id
-      %a.btn.btn-primary{ href: "#" } Add Payer
+              %td
+                %input.payer-accepted{ type: "checkbox", checked: p.accepted, "data-payer-id" => p.payer_id }
+                .request-status
+                  %span.label.label-info Saving...
+                  %span.label.label-success Saved
 = render partial: "modals/settings"
 = render partial: "modals/add_patient"

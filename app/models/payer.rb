@@ -1,8 +1,9 @@
 class Payer
   include Mongoid::Document
 
-  field :name,      type: String
-  field :payer_id,  type: String
+  field :name
+  field :payer_id
+  field :accepted, type: Boolean  
 
   has_many :enrollments
 end

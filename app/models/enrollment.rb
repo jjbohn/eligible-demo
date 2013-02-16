@@ -2,7 +2,6 @@ class Enrollment
   include Mongoid::Document
 
   field :member_id
-
   belongs_to :patient
   belongs_to :payer
 

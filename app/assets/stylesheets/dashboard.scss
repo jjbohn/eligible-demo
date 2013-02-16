@@ -11,8 +11,10 @@
   margin-top: 5px;
 }
 
-#settings { float: right; }
+#settings-button { float: right; }
 
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
   border-bottom-color: #ddd;
 }
+
+input.payer-accepted { float: left; margin-right: 10px; }

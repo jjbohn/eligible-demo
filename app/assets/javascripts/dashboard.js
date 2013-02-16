@@ -11,6 +11,25 @@ window.Util = {
     $("#settings input[name='first_name']").val(localStorage.getItem("eligibleDemoFirstName"));
     $("#settings input[name='last_name']").val(localStorage.getItem("eligibleDemoLastName"));
     $("#settings input[name='npi']").val(localStorage.getItem("eligibleDemoNpi"));
+  },
+
+  bindServiceCodeSearch: function() {
+    $(".service-code-search").focus(function() {
+      $(this).parent().find("i.icon-search").css("opacity", "0");
+    });
+
+    $(".service-code-search").blur(function() {
+      if ($(this).val().length == 0) {
+        $(this).parent().find("i.icon-search").css("opacity", "1");
+      };
+    });
+  },
+
+  bindPatientSummaries: function() {
+    $(".patient-summary").unbind();
+    $(".patient-summary").click(function() {
+      $(this).next().toggle();
+    });
   }
 };
 
@@ -22,11 +41,15 @@ $(document).ready(function() {
 
   $("#settings.modal").on('hidden', function() {
     Util.populateSettings();
-  })
+  });
+
+  Util.bindPatientSummaries();
+  Util.bindServiceCodeSearch();
 
   Util.populateSettings();
 
   $("#payers .label").hide();
+  $("tr.patient-check").hide();
 
   $(".payer-accepted").click(function() {
     $(this).parent().find(".label-info").show();
@@ -68,7 +91,14 @@ $(document).ready(function() {
       function(data) {
         $("button#add-patient").removeAttr("disabled");
         $("#add-patient").modal('hide');
-        $("#patients table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.dob + "</td><td>" + data.enrollments[0].member_id + "</tr>");
+        var addPatientRow = $("#patients table tbody tr:last").detach();
+        console.log(data);
+        $("#patients table tbody").append("<tr class='patient-summary'><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.dob + "</td><td>" + data.enrollments[0].member_id + "</td><td>" + data.enrollments[0].payer_name + "</td></tr>");
+        $("#patients table tbody").append("<tr class='patient-check'><td colspan='5'><form class='form-inline'><label for='service_code'>Service code</label><i class='icon-search'></i><input class='service-code-search' name='service_code' type='text'><button class='btn btn-primary patient-check'>Check Eligibility</button></form></td></tr>");
+        $("#patients table tbody").append(addPatientRow);
+        $("tr.patient-check").hide();
+        Util.bindPatientSummaries();
+        Util.bindServiceCodeSearch();
         $("#add-patient input[name='member_id']").val(""),
         $("#add-patient input[name='first_name']").val(""),
         $("#add-patient input[name='last_name']").val(""),

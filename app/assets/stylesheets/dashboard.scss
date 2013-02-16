@@ -18,3 +18,14 @@
 }
 
 input.payer-accepted { float: left; margin-right: 10px; }
+
+input[type='text'].service-code-search {
+  margin-left: -25px;
+  background: transparent;
+  width: 200px;
+}
+
+.patient-check .icon-search { margin-left: 10px; }
+.patient-summary { cursor: pointer; }
+
+tr.patient-summary td:last-child { width: 200px; }

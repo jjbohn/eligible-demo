@@ -6,3 +6,13 @@ body {
 .clear {
   clear: both;
 }
+
+tr { 
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+tbody tr:last-child, thead tr {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}

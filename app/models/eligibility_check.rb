@@ -14,7 +14,7 @@ class EligibilityCheck
     "V" => "Cannot process"
   }
 
-  field :timestamp
+  field :timestamp,       type: DateTime
   field :eligible_id
   field :mapping_version
   field :response,        type: Hash

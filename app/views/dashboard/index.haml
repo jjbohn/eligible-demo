@@ -69,15 +69,15 @@
             %th Timestamp
             %th#eligible-id Eligible ID
             %th Endpoint
-            %th Patient Name
-            %th Payer Name
+            %th Patient
+            %th Payer
             %th Service Code
             %th Coverage Status
         %tbody
           - @eligibility_checks.each do |e|
             %tr
               %td
-                = e.timestamp
+                = e.timestamp.strftime("%Y-%m-%d %H:%M:%S") if e.timestamp
               %td
                 = e.eligible_id
               %td

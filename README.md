@@ -10,6 +10,10 @@ Demo application for the [Eligible API](https://eligibleapi.com/rest-api-v1). Th
 3. `rails s`
 4. Navigate to [http://localhost:3000](http://localhost:3000)
 
+### Dependencies
+
+This particular project uses [MongoDB](http://www.mongodb.org/) and the [mongoid](http://mongoid.org/en/mongoid/index.html) gem, so you'll need to have those running. Feel free to fork for the data store of your choice.
+
 ### Usage
 
 From the dashboard, enter your API key from Eligible and NPI information. You can then add patients and perform eligibility checks.

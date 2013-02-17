@@ -26,7 +26,20 @@ input[type='text'].service-code-search {
 }
 
 .patient-check .icon-search { margin-left: 10px; }
+.patient-check form { float: left; }
 .patient-summary { cursor: pointer; }
 
 tr.patient-summary td:last-child { width: 200px; }
 th#eligible-id { width: 160px; }
+
+.checking-eligibility-spinner {
+  margin-left: 200px;
+  margin-top: 18px;
+}
+
+.coverage-status { 
+  float: left;
+  margin-left: 37px;
+  margin-top: -12px;
+  width: 230px;
+}

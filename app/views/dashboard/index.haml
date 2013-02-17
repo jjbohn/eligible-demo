@@ -40,6 +40,8 @@
                   %input.service-code{ type: "hidden", name: "service_code" }
                   %input.service-code-search{ type: "text", name: "service",  autocomplete: "off" }
                   %button.btn.btn-primary.patient-check Check Eligibility
+                .checking-eligibility-spinner
+                .coverage-status
           %tr
             %td{ colspan: 5 }
               %a.btn.btn-primary{ href: "#add-patient", role: "button", "data-toggle" => "modal" } Add Patient

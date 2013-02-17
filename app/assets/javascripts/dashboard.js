@@ -45,6 +45,11 @@ window.Util = {
 
   bindEligibilityChecks: function() {
     $("button.patient-check").click(function() {
+      _this$ = $(this);
+      _this$.attr("disabled", "disabled");
+      _this$.parent().parent().find(".checking-eligibility-spinner").css("opacity", "1");
+      _this$.parent().parent().find(".checking-eligibility-spinner").spin({radius: 5, length: 3, width: 2});
+
       var patientSummary = $(this).parent().parent().parent().prev();
       var params = $.extend({}, Util.settingsParams(), {
         payer_id: patientSummary.data("payer-id"),
@@ -56,7 +61,18 @@ window.Util = {
       });
       $.post("/eligibility_checks", params,
         function(data) {
-          console.log(data);
+          _this$.removeAttr("disabled");
+          $(".checking-eligibility-spinner").css("opacity", 0);
+          if (data.error) { 
+            _this$.parent().parent().find(".coverage-status").html(data.error.reject_reason_description);
+            _this$.parent().parent().find(".coverage-status").show();
+            return; 
+          };
+          var statusCode = data.response.coverage_status;
+          var status = statusCodes.filter(function(e, i, array) { return e.code == statusCode })[0].status;
+          _this$.parent().parent().find(".coverage-status").html("Coverage status: " + status);
+          _this$.parent().parent().find(".coverage-status").show();
+          $("#logs tbody").append("<tr><td>" + data.response.timestamp + "</td><td>" + data.response.eligible_id + "</td><td>" + data.response.mapping_version.match(/([^\s]*)/)[0] + "</td><td colspan=2>Refresh page for data</td><td>" + data.response.type + "</td><td>" + status + "</td></tr>");
         }
       )
       return false;
@@ -81,6 +97,7 @@ $(document).ready(function() {
 
   $("#payers .label").hide();
   $("tr.patient-check").hide();
+  $(".coverage-status").hide();
 
   $(".payer-accepted").click(function() {
     $(this).parent().find(".label-info").show();

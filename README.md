@@ -5,10 +5,10 @@ Demo application for the [Eligible API](https://eligibleapi.com/rest-api-v1). Th
 ### Installation
 
 1. Clone this repository 
-2. cd into the directory
+2. `cd eligible-demo`
 2. `bundle install`
 3. `rails s`
-4. Navigate to http://localhost:3000
+4. Navigate to [http://localhost:3000](http://localhost:3000)
 
 ### Usage
 

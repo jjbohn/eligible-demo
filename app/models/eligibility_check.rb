@@ -11,7 +11,8 @@ class EligibilityCheck
     "7" => "Inactive - Pending Eligibility Update",
     "8" => "Inactive - Pending Investigation",
     "I" => "Not-Covered",
-    "V" => "Cannot process"
+    "V" => "Cannot process",
+    "" => "Not Covered"
   }
 
   field :timestamp,       type: DateTime
@@ -22,7 +23,7 @@ class EligibilityCheck
   belongs_to :enrollment
 
   def coverage_status_description
-    return nil unless response["coverage_status"]
+    return "nil" unless response["coverage_status"]
     COVERAGE_STATUS_CODES[response["coverage_status"]]
   end
 

@@ -65,7 +65,14 @@ window.Util = {
           _this$.removeAttr("disabled");
           $(".checking-eligibility-spinner").css("opacity", 0);
           if (data.error) { 
-            _this$.parent().parent().find(".coverage-status").html(data.error.reject_reason_description);
+            var message = "";
+            if (data.error.reject_reason_description) {
+              message = data.error.reject_reason_description;
+            }
+            else {
+              message = data.error;
+            }
+            _this$.parent().parent().find(".coverage-status").html(message);
             _this$.parent().parent().find(".coverage-status").show();
             return; 
           };

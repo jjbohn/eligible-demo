@@ -6,5 +6,8 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = favicon_link_tag 'favicon.png'
+    %script{ type: "text/javascript" }
+      =raw "$(document).ready(function() {window.env = \"#{Rails.env}\";});"
   %body
+
     = yield

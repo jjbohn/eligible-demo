@@ -136,6 +136,10 @@ $(document).ready(function() {
   });
 
   $("button#add-patient").click(function() {
+    if (env == "development") {
+      $("#add-patient .modal-body").html("To actually add your own data, see the instructions for <a href='http://github.com/eligibleAPI/eligible-demo'>cloning the repository</a>.")
+      return;
+    };
     $(this).attr("disabled", "disabled");
     $.post("/patients",
       {

@@ -136,7 +136,7 @@ $(document).ready(function() {
   });
 
   $("button#add-patient").click(function() {
-    if (env == "development") {
+    if (env == "production") {
       $("#add-patient .modal-body").html("To actually add your own data, see the instructions for <a href='http://github.com/eligibleAPI/eligible-demo'>cloning the repository</a>.")
       return;
     };

@@ -16,4 +16,4 @@ From the dashboard, enter your API key from Eligible and NPI information. You ca
 
 ### Demo
 
-There is also a read-only live demo [available here](TBD).
+There is also a read-only live demo [available here](http://eligible-demo.herokuapp.com/).

@@ -61,6 +61,7 @@ window.Util = {
       });
       $.post("/eligibility_checks", params,
         function(data) {
+          console.log(data);
           _this$.removeAttr("disabled");
           $(".checking-eligibility-spinner").css("opacity", 0);
           if (data.error) { 

@@ -61,7 +61,6 @@ window.Util = {
       });
       $.post("/eligibility_checks", params,
         function(data) {
-          console.log(data);
           _this$.removeAttr("disabled");
           $(".checking-eligibility-spinner").css("opacity", 0);
           if (data.error) { 
@@ -77,7 +76,10 @@ window.Util = {
             return; 
           };
           var statusCode = data.response.coverage_status;
-          var status = statusCodes.filter(function(e, i, array) { return e.code == statusCode })[0].status;
+          var status = "Not Covered";
+          if (statusCode.length > 0) {
+            status = statusCodes.filter(function(e, i, array) { return e.code == statusCode })[0].status;
+          }
           _this$.parent().parent().find(".coverage-status").html("Coverage status: " + status);
           _this$.parent().parent().find(".coverage-status").show();
           $("#logs tbody").append("<tr><td>" + data.response.timestamp + "</td><td>" + data.response.eligible_id + "</td><td>" + data.response.mapping_version.match(/([^\s]*)/)[0] + "</td><td colspan=2>Refresh page for data</td><td>" + data.response.type + "</td><td>" + status + "</td></tr>");
@@ -145,7 +147,7 @@ $(document).ready(function() {
 
   $("button#add-patient").click(function() {
     if (env == "production") {
-      $("#add-patient .modal-body").html("To actually add your own data, see the instructions for <a href='http://github.com/eligibleAPI/eligible-demo'>cloning the repository</a>.")
+      $("#add-patient .modal-body").html("To add your own data, see the instructions for <a href='http://github.com/eligibleAPI/eligible-demo'>cloning the repository</a>.")
       return;
     };
     $(this).attr("disabled", "disabled");

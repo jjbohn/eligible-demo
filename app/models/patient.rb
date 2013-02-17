@@ -23,4 +23,8 @@ class Patient
   def payer_name
     enrollments.first.try(:payer).try(:name)
   end
+
+  def payer_id
+    enrollments.first.try(:payer).try(:payer_id)
+  end
 end

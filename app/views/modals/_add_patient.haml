@@ -11,7 +11,7 @@
       .control-group
         %label.control-label{ for: "payer" } Payer:
         .controls
-          %input.payer-typeahead{ type: "text", name: "payer" }
+          %input.payer-typeahead{ type: "text", name: "payer", placeholder: "Type to search", autocomplete: "off" }
       %input{ type: "hidden", name: "payer_id" }
       .control-group
         %label.control-label{ for: "first_name" } First Name:
@@ -24,7 +24,7 @@
       .control-group
         %label.control-label{ for: "dob" } DOB:
         .controls
-          %input{ type: "text", name: "dob" }
+          %input{ type: "text", name: "dob", placeholder: "YYYY-MM-DD" }
   .modal-footer
     %button.btn{ href: "#", "data-dismiss" => "modal", "aria-hidden" => "true" } Close
     %button#add-patient.btn.btn-primary{ href: "#" } Add Patient

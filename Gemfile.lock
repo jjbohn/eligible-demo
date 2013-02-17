@@ -38,6 +38,9 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     commonjs (0.2.6)
+    eligible (1.0)
+      multi_json (>= 1.0.4, < 2)
+      rest-client (~> 1.4)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -96,6 +99,8 @@ GEM
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.2.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -131,6 +136,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  eligible
   haml
   jquery-rails
   less-rails

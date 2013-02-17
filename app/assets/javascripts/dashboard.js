@@ -13,14 +13,25 @@ window.Util = {
     $("#settings input[name='npi']").val(localStorage.getItem("eligibleDemoNpi"));
   },
 
+  settingsParams: function() {
+    return {
+      api_key: localStorage.getItem("eligibleDemoApiKey"),
+      service_provider_first_name: localStorage.getItem("eligibleDemoFirstName"),
+      service_provider_last_name: localStorage.getItem("eligibleDemoLastName"),
+      service_provider_NPI: localStorage.getItem("eligibleDemoNpi")
+    }
+  },
+
   bindServiceCodeSearch: function() {
     $(".service-code-search").focus(function() {
       $(this).parent().find("i.icon-search").css("opacity", "0");
+      $(this).css("background-color", "white");
     });
 
     $(".service-code-search").blur(function() {
       if ($(this).val().length == 0) {
         $(this).parent().find("i.icon-search").css("opacity", "1");
+        $(this).css("background", "transparent");
       };
     });
   },
@@ -29,6 +40,26 @@ window.Util = {
     $(".patient-summary").unbind();
     $(".patient-summary").click(function() {
       $(this).next().toggle();
+    });
+  },
+
+  bindEligibilityChecks: function() {
+    $("button.patient-check").click(function() {
+      var patientSummary = $(this).parent().parent().parent().prev();
+      var params = $.extend({}, Util.settingsParams(), {
+        payer_id: patientSummary.data("payer-id"),
+        service_type_code: $(this).parent().find("input[name='service_code']").val(),
+        subscriber_id: patientSummary.data("member-id"),
+        subscriber_last_name: patientSummary.data("last-name"),
+        subscriber_first_name: patientSummary.data("first-name"),
+        subscriber_dob: patientSummary.data("dob")
+      });
+      $.post("/eligibility_checks", params,
+        function(data) {
+          console.log(data);
+        }
+      )
+      return false;
     });
   }
 };
@@ -45,7 +76,7 @@ $(document).ready(function() {
 
   Util.bindPatientSummaries();
   Util.bindServiceCodeSearch();
-
+  Util.bindEligibilityChecks();
   Util.populateSettings();
 
   $("#payers .label").hide();
@@ -77,6 +108,16 @@ $(document).ready(function() {
     }
   });
 
+  $(".service-code-search").typeahead({
+    source: eligibleServices,
+    items: 4,
+    updater: function(item) {
+      var code = serviceCodes.filter(function(e, i, array) { return e["service"] == item } )[0]["code"]
+      $(this.$element).parent().find(".service-code").val(code);
+      return item;
+    }
+  });
+
   $("button#add-patient").click(function() {
     $(this).attr("disabled", "disabled");
     $.post("/patients",
@@ -92,13 +133,13 @@ $(document).ready(function() {
         $("button#add-patient").removeAttr("disabled");
         $("#add-patient").modal('hide');
         var addPatientRow = $("#patients table tbody tr:last").detach();
-        console.log(data);
-        $("#patients table tbody").append("<tr class='patient-summary'><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.dob + "</td><td>" + data.enrollments[0].member_id + "</td><td>" + data.enrollments[0].payer_name + "</td></tr>");
+        $("#patients table tbody").append("<tr class='patient-summary'><td class='first_name'>" + data.first_name + "</td><td class='last_name'>" + data.last_name + "</td><td class='dob'>" + data.dob + "</td><td class='member_id'>" + data.enrollments[0].member_id + "</td><td class='payer_name'>" + data.enrollments[0].payer_name + "</td></tr>");
         $("#patients table tbody").append("<tr class='patient-check'><td colspan='5'><form class='form-inline'><label for='service_code'>Service code</label><i class='icon-search'></i><input class='service-code-search' name='service_code' type='text'><button class='btn btn-primary patient-check'>Check Eligibility</button></form></td></tr>");
         $("#patients table tbody").append(addPatientRow);
         $("tr.patient-check").hide();
         Util.bindPatientSummaries();
         Util.bindServiceCodeSearch();
+        Util.bindEligibilityChecks();
         $("#add-patient input[name='member_id']").val(""),
         $("#add-patient input[name='first_name']").val(""),
         $("#add-patient input[name='last_name']").val(""),

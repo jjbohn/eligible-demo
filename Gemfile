@@ -18,3 +18,5 @@ gem 'unicorn'
 gem 'mongoid'
 
 gem 'haml'
+
+gem 'eligible'
